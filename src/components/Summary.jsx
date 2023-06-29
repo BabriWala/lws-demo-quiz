@@ -4,7 +4,8 @@ import Styles from "../styles/Summary.module.css";
 import useFetch from "./hooks/useFetch";
 
 export default function Summary({ score, noq }) {
-  const getKeyword = () => useMemo(()=>{
+
+  const getKeyword = useMemo(() => {
     if ((score / (noq * 5)) * 100 < 50) {
       return "failed";
     } else if ((score / (noq * 5)) * 100 < 75) {
@@ -14,7 +15,7 @@ export default function Summary({ score, noq }) {
     } else {
       return "excellent";
     }
-  }),[score, noq];
+  },[score, noq]);
 
   const { loading, error, result } = useFetch(
     `https://api.pexels.com/v1/search?query=${getKeyword()}&per_page=1`,
